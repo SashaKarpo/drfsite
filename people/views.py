@@ -19,11 +19,6 @@ class PeopleAPIview(APIView):
     def post(self, request):
         serializer = PeopleSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        serializer.seve()
 
-        post_new = People.objects.create(
-            title=request.data['title'],
-            content=request.data['content'],
-            cat_id=request.data['cat_id']
-        )
-
-        return Response({'post': PeopleSerializer(post_new).data})
+        return Response({'post': serializer.data})
