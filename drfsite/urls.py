@@ -19,5 +19,6 @@ from people.views import PeopleAPIview
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/peoplelist/', PeopleAPIview.as_view())
+    path('api/v1/peoplelist/', PeopleAPIview.as_view()),
+    path('api/v1/peoplelist/<int:pk>/', PeopleAPIview.as_view())
 ]
