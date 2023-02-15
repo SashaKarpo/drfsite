@@ -38,3 +38,15 @@ class PeopleAPIview(APIView):
         serializer.save()
 
         return Response({'post': serializer.data})
+
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get('pk', None)
+        if not pk:
+            return Response({'error': 'Method delete not found'})
+        try:
+            instance = People.objects.get(pk=pk)
+            instance.delete()
+        except:
+            return Response({'error': 'Object not found'})
+
+        return Response({"post": "delete post " + str(pk)})
