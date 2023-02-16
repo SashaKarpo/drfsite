@@ -18,29 +18,28 @@ from django.urls import path, include
 from people.views import *
 from rest_framework import routers
 
+# class MyCustomRouter(routers.SimpleRouter):
+#    routes = [
+#        routers.Route(url=r'^{prefix}$',
+#                      mapping={'get': 'list'},
+#                      name='{basename}-list',
+#                      detail=False,
+#                      initkwargs={'suffix': 'list'}),
+#        routers.Route(url=r'^{prefix}/{lookup}$',
+#                      mapping={'get': 'retrieve'},
+#                      name='{basename}-detail',
+#                      detail=True,
+#                      initkwargs={'suffix': 'detail'})
+#    ]
 
-class MyCustomRouter(routers.SimpleRouter):
-    routes = [
-        routers.Route(url=r'^{prefix}$',
-                      mapping={'get': 'list'},
-                      name='{basename}-list',
-                      detail=False,
-                      initkwargs={'suffix': 'list'}),
-        routers.Route(url=r'^{prefix}/{lookup}$',
-                      mapping={'get': 'retrieve'},
-                      name='{basename}-detail',
-                      detail=True,
-                      initkwargs={'suffix': 'detail'})
-    ]
 
-
-router = MyCustomRouter()
-router.register(r'people', PeopleViewSet, basename='people')
-print(router.urls)
+# router = MyCustomRouter()
+# router.register(r'people', PeopleViewSet, basename='people')
+# print(router.urls)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include(router.urls)),  # http://127.0.0.1:8000/api/v1/people/
-    # path('api/v1/peoplelist/', PeopleViewSet.as_view({'get': 'list'})),
-    # path('api/v1/peoplelist/<int:pk>/', PeopleViewSet.as_view({'put': 'update'})),
+    path('api/v1/people/', PeopleAPIList.as_view()),
+    path('api/v1/people/<int:pk>/', PeopleAPIUpdate.as_view()),
+    path('api/v1/peopledelete/<int:pk>/', PeopleAPIDestroy.as_view()),
 ]
