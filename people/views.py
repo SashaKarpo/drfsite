@@ -7,46 +7,57 @@ from rest_framework.views import APIView
 from django.forms import model_to_dict
 
 
-# class PeopleAPIview(generics.ListAPIView):
-#    queryset = People.objects.all()
-#    serializer_class = PeopleSerializer
+class PeopleAPIList(generics.ListCreateAPIView):
+    queryset = People.objects.all()
+    serializer_class = PeopleSerializer
 
-class PeopleAPIview(APIView):
-    def get(self, request):
-        w = People.objects.all()
-        return Response({'posts': PeopleSerializer(w, many=True).data})
 
-    def post(self, request):
-        serializer = PeopleSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+class PeopleAPIUpdate(generics.UpdateAPIView):
+    queryset = People.objects.all()
+    serializer_class = PeopleSerializer
 
-        return Response({'post': serializer.data})
 
-    def put(self, request, *args, **kwargs):
-        pk = kwargs.get('pk', None)
-        if not pk:
-            return Response({'error': 'Method Put not allowed'})
+class PeopleAPIDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = People.objects.all()
+    serializer_class = PeopleSerializer
 
-        try:
-            instance = People.objects.get(pk=pk)
-        except:
-            return Response({'error': 'Object does not exists'})
-
-        serializer = PeopleSerializer(data=request.data, instance=instance)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        return Response({'post': serializer.data})
-
-    def delete(self, request, *args, **kwargs):
-        pk = kwargs.get('pk', None)
-        if not pk:
-            return Response({'error': 'Method delete not found'})
-        try:
-            instance = People.objects.get(pk=pk)
-            instance.delete()
-        except:
-            return Response({'error': 'Object not found'})
-
-        return Response({"post": "delete post " + str(pk)})
+# class PeopleAPIview(APIView):
+#   def get(self, request):
+#       w = People.objects.all()
+#       return Response({'posts': PeopleSerializer(w, many=True).data})
+#
+#    def post(self, request):
+#        serializer = PeopleSerializer(data=request.data)
+#        serializer.is_valid(raise_exception=True)
+#        serializer.save()
+#
+#       return Response({'post': serializer.data})
+#
+#    def put(self, request, *args, **kwargs):
+#        pk = kwargs.get('pk', None)
+#        if not pk:
+#            return Response({'error': 'Method Put not allowed'})
+#
+#        try:
+#           instance = People.objects.get(pk=pk)
+#        except:
+#            return Response({'error': 'Object does not exists'})
+#
+#       serializer = PeopleSerializer(data=request.data, instance=instance)
+#        serializer.is_valid(raise_exception=True)
+#        serializer.save()
+#
+#        return Response({'post': serializer.data})
+#
+# def delete(self, request, *args, **kwargs):
+#    pk = kwargs.get('pk', None)
+#    if not pk:
+#        return Response({'error': 'Method delete not found'})
+#    try:
+#        instance = People.objects.get(pk=pk)
+#        instance.delete()
+#    except:
+#        return Response({'error': 'Object not found'})
+#
+#    return Response({"post": "delete post " + str(pk)})
+#

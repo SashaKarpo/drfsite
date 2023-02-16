@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from people.views import PeopleAPIview
+from people.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/peoplelist/', PeopleAPIview.as_view()),
-    path('api/v1/peoplelist/<int:pk>/', PeopleAPIview.as_view())
+    path('api/v1/peoplelist/', PeopleAPIList.as_view()),
+    path('api/v1/peoplelist/<int:pk>/', PeopleAPIUpdate.as_view()),
+    path('api/v1/peopdetail/<int:pk>/', PeopleAPIDetailView.as_view()),
 ]

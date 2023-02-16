@@ -1,9 +1,5 @@
-import io
-
 from rest_framework import serializers
 from .models import *
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
 
 
 # class PeopleModel:
@@ -16,7 +12,6 @@ class PeopleSerializer(serializers.ModelSerializer):
     class Meta:
         model = People
         fields = "__all__"
-
 
 # def encode():
 #    model = PeopleModel('Angelina Jolie', 'Content: Angelina Jolie')
