@@ -18,8 +18,9 @@ from django.urls import path, include
 from people.views import *
 from rest_framework import routers
 
-router = routers.SimpleRouter()
+router = routers.DefaultRouter()
 router.register(r'people', PeopleViewSet)
+print(router.urls)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
