@@ -18,7 +18,23 @@ from django.urls import path, include
 from people.views import *
 from rest_framework import routers
 
-router = routers.DefaultRouter()
+
+class MyCustomRouter(routers.SimpleRouter):
+    routes = [
+        routers.Route(url=r'^{prefix}$',
+                      mapping={'get': 'list'},
+                      name='{basename}-list',
+                      detail=False,
+                      initkwargs={'suffix': 'list'}),
+        routers.Route(url=r'^{prefix}/{lookup}$',
+                      mapping={'get': 'retrieve'},
+                      name='{basename}-detail',
+                      detail=True,
+                      initkwargs={'suffix': 'detail'})
+    ]
+
+
+router = MyCustomRouter()
 router.register(r'people', PeopleViewSet, basename='people')
 print(router.urls)
 
