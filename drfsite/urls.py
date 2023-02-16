@@ -19,7 +19,7 @@ from people.views import *
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'people', PeopleViewSet)
+router.register(r'people', PeopleViewSet, basename='people')
 print(router.urls)
 
 urlpatterns = [

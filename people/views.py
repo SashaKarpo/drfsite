@@ -9,8 +9,16 @@ from rest_framework.decorators import action
 
 
 class PeopleViewSet(viewsets.ModelViewSet):
-    queryset = People.objects.all()
+    # queryset = People.objects.all()
     serializer_class = PeopleSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs.get('pk')
+
+        if not pk:
+            return People.objects.all()[:3]
+
+        return People.objects.filter(pk=pk)
 
     @action(methods=['get'], detail=True)
     def category(self, request, pk):
