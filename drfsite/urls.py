@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from people.views import *
-from rest_framework import routers
+from rest_framework import routers, urls
 
 # class MyCustomRouter(routers.SimpleRouter):
 #    routes = [
@@ -39,6 +39,7 @@ from rest_framework import routers
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/drf-auth/', include('rest_framework.urls')),
     path('api/v1/people/', PeopleAPIList.as_view()),
     path('api/v1/people/<int:pk>/', PeopleAPIUpdate.as_view()),
     path('api/v1/peopledelete/<int:pk>/', PeopleAPIDestroy.as_view()),
